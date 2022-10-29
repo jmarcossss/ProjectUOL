@@ -1,1 +1,12 @@
-styleeeeee
+.topo {
+    background:blueviolet;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.imagem {
+    margin-right: 175px;
+    margin-left: 15px;
+}

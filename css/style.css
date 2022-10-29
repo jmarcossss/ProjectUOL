@@ -1,5 +1,5 @@
 .topo {
-    background:blueviolet;
+    background: #FFFFFF;
     height: 80px;
     display: flex;
     justify-content: space-around;
@@ -9,4 +9,24 @@
 .imagem {
     margin-right: 175px;
     margin-left: 15px;
+}
+
+.chat {
+    background: #E5E5E5;
+    height: 510px;
+}
+
+.mensagem {
+    background: #FFFFFF;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.digitar {
+    height: 30px;
+    width: 145px;
+    margin-left: -5px;
+    margin-right: 140px;
 }

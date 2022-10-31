@@ -79,3 +79,37 @@ ul {
   position: absolute;
   margin-top: 30px;
 }
+
+
+.alerta-entrada,
+.mensagem-todos,
+.mensagem-privada {
+  width: 375px;
+  border-radius: 3px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.horario {
+  font-style: italic;
+  color: #AAAAAA;
+  margin-left: 0px;
+}
+
+.alerta-entrada {
+  background-color: #DCDCDC;
+}
+
+.mensagem-todos {
+  background-color: #FFFFFF;
+}
+
+.mensagem-privada {
+  background-color: #FFDEDE;
+}
+
+span {
+  margin: 13px 5px 13px 7px;
+}

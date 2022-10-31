@@ -1,32 +1,81 @@
-.topo {
-    background: #FFFFFF;
-    height: 80px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+*{
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #E5E5E5;
 }
 
-.imagem {
-    margin-right: 175px;
-    margin-left: 15px;
+.topo {
+  width: 380px;
+  height: 80px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.topo img,
+.ion_1 {
+  margin: 0 25px;
+}
+
+.ion_1 {
+  font-size: 45px;
 }
 
 .chat {
-    background: #E5E5E5;
-    height: 510px;
+  width: 375px;
+  height: 100vh;
+  background-color: #F3F3F3;
+  margin: 80px auto 80px auto;
+  overflow: hidden;
+  overflow-y: scroll;
+  position: relative;
+
 }
 
-.mensagem {
-    background: #FFFFFF;
-    height: 80px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.mensage {
+  width: 375px;
+  height: 80px;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .digitar {
-    height: 30px;
-    width: 145px;
-    margin-left: -5px;
-    margin-right: 140px;
+  height: 30px;
+  width: 175px;
+}
+
+textarea {
+  padding: 5px;
+  max-width: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  color: black;
+  font-style: italic;
+  margin-left: 20px;
+}
+
+.click_confirm {
+  font-size: 26px;
+  margin-right: 20px;
+}
+
+.click_confirm:hover {
+  cursor: pointer;
+}
+
+ul {
+  position: absolute;
+  margin-top: 30px;
 }

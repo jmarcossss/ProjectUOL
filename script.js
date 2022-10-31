@@ -1,124 +1,86 @@
 let nomeUsuario = '';
 const url = "https://mock-api.driven.com.br/api/v6/uol";
-const tempo_att = 4000;
-const tempo_conect_msg = 2000;
-let mensagens = [];
-
-solicitaNomeUsuario();
+const tempo_att = 5000;
+const tempo_conect_msg = 3000;
+let APIMsgs = []; //Mensages from API aqui
 
 function solicitaNomeUsuario() {
 
   nomeUsuario = prompt("Qual o seu nome?");
   const promise = axios.post(`${url}/participants`, {name: nomeUsuario});
-  promise.then(carregarMensagens); //caso conecte, vamos mostrar as mensagens
+  promise.then(takeMensagesFromAPI); //caso conecte, vamos mostrar as mensagens
   promise.catch(solicitaNomeUsuario); //caso contrário, pedimos o nome de novo
 }
 
-// function usuarioValido(resposta) {
-//   alert('Usuário Valido');
-//   carregarMensagens();
-// }
-
-// function usuavioInvalido(resposta) {
-//   alert('Usuário Inválido, digite outro nome');
-//   solicitaNomeUsuario();
-// }
-
-function confirmaConexao() {
-
+//Mantendo conexão com o servidor
+function conectarAoServer() {
   const promise = axios.post(`${url}/status`, {name: nomeUsuario});
-
-  promise.then(usuarioConectado);
+  promise.then('Conectado');
   promise.catch(usuarioNaoConectado);
 }
 
-//////////////////////////
-
 //Vai lá na api das mensagens para pegar as mensagens de lá
-function carregarMensagens() {
-  //setInterval(carregarMensagens, tempo_conect_msg);
+function takeMensagesFromAPI() {
   const promise = axios.get(`${url}/messages`);
-
-  promise.then(renderizarMensagens);
+  promise.then(mensagesInScreen);
   promise.catch("Deu ruim");
 }
 
 //Vai printar as mensagens, em ordem, da forma como elas vieram lá da api de mensagens
-function renderizarMensagens(resposta) {
-  mensagens = resposta.data;
-
+function mensagesInScreen(answFromAPI) {
+  APIMsgs = answFromAPI.data;
   const ul = document.querySelector(".mensagens");
-
   ul.innerHTML = null;
+  for (let i = 0; i < APIMsgs.length; i++) {
+    switch(APIMsgs[i].type){
+      case 'status':
+        ul.innerHTML += `
+        <li class = "mensagem alerta-entrada">
+        <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
+        </li>
+        `;
+      break;
 
-  for (let i = 0; i < mensagens.length; i++) {
+      case 'private_message':
+        ul.innerHTML += `
+        <li class = "mensagem alerta-entrada">
+        <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
+        </li>
+        `;
+      break;
 
-      if(mensagens[i].type == "status"){
-        ul.innerHTML = ul.innerHTML + `
-      <li class = "mensagem alerta-entrada">
-      <span><span class = "horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> ${mensagens[i].text}</span>
-      </li>
-      `;}
+      case 'message':
+        ul.innerHTML += `
+        <li class = "mensagem alerta-entrada">
+        <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
+        </li>
+        `;
+      break;
 
-      else if(mensagens[i].type == "private_message"){
-        ul.innerHTML = ul.innerHTML + `
-      <li class = "mensagem alerta-entrada">
-      <span><span class = "horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> ${mensagens[i].text}</span>
-      </li>
-      `;}
-      
-      else if(mensagens[i].type == "message"){
-        ul.innerHTML = ul.innerHTML + `
-      <li class = "mensagem alerta-entrada">
-      <span><span class = "horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> ${mensagens[i].text}</span>
-      </li>
-      `;}
-
-      
-
-      // if(mensagens[i].type == "status"){
-      //   ul.innerHTML = ul.innerHTML + `
-      // <li class = "mensagem alerta-entrada">
-      // <span><span class = "horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> ${mensagens[i].text}</span>
-      // </li>
-      // `;}
-
-      // if(mensagens[i].type == "private_message"){
-      //   ul.innerHTML = ul.innerHTML + `
-      // <li class = "mensagem alerta-entrada">
-      // <span><span class = "horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> ${mensagens[i].text}</span>
-      // </li>
-      // `;}
-      
-      // if(mensagens[i].type == "message"){
-      //   ul.innerHTML = ul.innerHTML + `
-      // <li class = "mensagem alerta-entrada">
-      // <span><span class = "horario">${mensagens[i].time}</span><strong>${mensagens[i].from}</strong> ${mensagens[i].text}</span>
-      // </li>
-      // `;}
-
+      default:
+        alert("Não foi possível inserir novas mensagens!");
+    }
   }
-  
-  let elementoQueQueroQueApareca = document.querySelector('ul').lastElementChild
-  elementoQueQueroQueApareca.scrollIntoView();
 
+  let msgNaTela = document.querySelector('ul').lastElementChild
+  msgNaTela.scrollIntoView();
 }
 
-setInterval(confirmaConexao, tempo_att);
-setInterval(carregarMensagens, tempo_conect_msg);
+setInterval(conectarAoServer, tempo_att);
+setInterval(takeMensagesFromAPI, tempo_conect_msg);
 
-function usuarioConectado(resposta) {
-}
+// function usuarioConectado(answFromAPI) {
+// }
 
-function usuarioNaoConectado(resposta) {
+function usuarioNaoConectado(answFromAPI) {
   alert("Erro, usuário não está mais conectado");
 }
 
-function erroMensagens(resposta) {
+function erroMensagens(answFromAPI) {
   alert('Erro ao carregar as mensagens');
 }
 
-// function erroNoEnvio(resposta) {
+// function erroNoEnvio(answFromAPI) {
 //   alert("Erro ao enviar a mensagem")
 // }
 
@@ -135,9 +97,11 @@ function enviarMensagem() {
 
   const promise = axios.post(`${url}/messages`, mensagemObjeto);
 
-  promise.then(carregarMensagens);
+  promise.then(takeMensagesFromAPI);
   promise.catch('Deu ruim');
 
   mensagemEnviada.value = '';
 
 }
+
+solicitaNomeUsuario();

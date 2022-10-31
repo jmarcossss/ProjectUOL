@@ -1,7 +1,3 @@
-*{
-  box-sizing: border-box;
-}
-
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #E5E5E5;
@@ -18,6 +14,10 @@ body {
   position: fixed;
   top: 0;
   right: 0;
+}
+
+*{
+  box-sizing: border-box;
 }
 
 .topo img {

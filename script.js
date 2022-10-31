@@ -32,34 +32,30 @@ function mensagesInScreen(answFromAPI) {
   const ul = document.querySelector(".mensagens");
   ul.innerHTML = null;
   for (let i = 0; i < APIMsgs.length; i++) {
-    switch(APIMsgs[i].type){
-      case 'status':
-        ul.innerHTML += `
-        <li class = "mensagem alerta-entrada">
-        <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
-        </li>
-        `;
-      break;
-
-      case 'private_message':
-        ul.innerHTML += `
-        <li class = "mensagem alerta-entrada">
-        <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
-        </li>
-        `;
-      break;
-
-      case 'message':
-        ul.innerHTML += `
-        <li class = "mensagem alerta-entrada">
-        <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
-        </li>
-        `;
-      break;
-
-      default:
-        alert("Não foi possível inserir novas mensagens!");
+    if(APIMsgs[i].type == "status") {
+      ul.innerHTML += `
+      <li class = "mensagem alerta-entrada">
+      <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
+      </li>
+      `;
     }
+
+    else if(APIMsgs[i].type == "private_message") {
+      ul.innerHTML += `
+      <li class = "mensagem alerta-entrada">
+      <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
+      </li>
+      `;
+    }
+
+    else if(APIMsgs[i].type == "message") {
+      ul.innerHTML += `
+      <li class = "mensagem alerta-entrada">
+      <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
+      </li>
+      `;
+    }
+      
   }
 
   let msgNaTela = document.querySelector('ul').lastElementChild

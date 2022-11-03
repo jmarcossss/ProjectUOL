@@ -34,7 +34,7 @@ function mensagesInScreen(answFromAPI) {
   for (let i = 0; i < APIMsgs.length; i++) {
     if(APIMsgs[i].type == "status") {
       ul.innerHTML += `
-      <li class = "mensagem alerta-entrada">
+      <li class = "mensagem alerta-entrada" data-test="message">
       <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
       </li>
       `;
@@ -42,7 +42,7 @@ function mensagesInScreen(answFromAPI) {
 
     else if(APIMsgs[i].type == "private_message") {
       ul.innerHTML += `
-      <li class = "mensagem alerta-entrada">
+      <li class = "mensagem mensagem-privada" data-test="message">
       <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
       </li>
       `;
@@ -50,7 +50,7 @@ function mensagesInScreen(answFromAPI) {
 
     else if(APIMsgs[i].type == "message") {
       ul.innerHTML += `
-      <li class = "mensagem alerta-entrada">
+      <li class = "mensagem mensagem-todos" data-test="message">
       <span><span class = "horario">${APIMsgs[i].time}</span><strong>${APIMsgs[i].from}</strong> ${APIMsgs[i].text}</span>
       </li>
       `;
